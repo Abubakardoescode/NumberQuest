@@ -1,27 +1,36 @@
+# Import necessary libraries
+from random import randint
 import streamlit as st
-import random
 
-def guessing_game():
-    secret_number = random.randint(1, 50)
+def main():
+    st.title("Guess the Secret Number Game")
+    st.write("Welcome! Try to guess the secret number between 1 and 50.")
+
+    # Generate a random secret number
+    secret_number = randint(1, 50)
     attempts_left = 5
-    game_over = False
 
-    while attempts_left > 0 and not game_over:
-        # Generate a unique ID for the text input widget
-        unique_id = st.session_state.get("guess_input_id", 0) + 1
-        st.session_state["guess_input_id"] = unique_id
-
-        guess_str = st.text_input(label="Guess the number (between 1 and 50). You have {} attempts left.".format(attempts_left),
-                                   key=unique_id)  # Use the unique ID as a key
-
+    while attempts_left > 0:
         try:
-            guess = int(guess_str)
+            # Get user input
+            user_guess = int(st.text_input("Enter your guess:", key="guess"))
+
+            # Check if the guess is correct
+            if user_guess == secret_number:
+                st.success(f"Congratulations! You guessed the secret number {secret_number} correctly!")
+                break
+            elif user_guess < secret_number:
+                st.warning(f"Try again! Your guess is too low. You have {attempts_left} attempts left.")
+            else:
+                st.warning(f"Try again! Your guess is too high. You have {attempts_left} attempts left.")
+
+            attempts_left -= 1
         except ValueError:
             st.error("Invalid input! Please enter a valid number.")
-            continue
 
-        # ... rest of the game logic ...
+    # If user runs out of attempts
+    if attempts_left == 0:
+        st.error(f"Game Over! The secret number was {secret_number}. Better luck next time!")
 
-st.title("Guessing Game")
-st.write("Try to guess the secret number between 1 and 50 in 5 attempts!")
-guessing_game()
+if __name__ == "__main__":
+    main()
