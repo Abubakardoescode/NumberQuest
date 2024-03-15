@@ -7,31 +7,29 @@ def play_guessing_game():
 
     # Generate a random number between 1 and 50
     number_to_guess = random.randint(1, 50)
-
+    
+    attempts = 0
     max_attempts = 5
 
-    for attempt in range(max_attempts):
-        guess = st.text_input(f"Attempt {attempt+1}: Enter your guess:", key=f"guess_input_{attempt}")
+    guess = st.text_input("Enter your guess:")
 
+    if st.button("Submit"):
         # Check if the input is a valid number
         if not guess.isdigit():
             st.write("Invalid input! Please enter a valid number.")
-            continue
-
-        guess = int(guess)
-
-        # Check if the guess is correct
-        if guess == number_to_guess:
-            st.write("Congratulations! You've guessed the number.")
-            break
-        elif guess < number_to_guess:
-            st.write("Try a higher number.")
         else:
-            st.write("Try a lower number.")
+            guess = int(guess)
+            attempts += 1
 
-        if attempt == max_attempts - 1:
-            st.write(f"Sorry, you've run out of attempts. The correct number was {number_to_guess}.")
-            break
+            # Check if the guess is correct
+            if guess == number_to_guess:
+                st.write("Congratulations! You've guessed the number.")
+            elif attempts == max_attempts:
+                st.write(f"Sorry, you've run out of attempts. The correct number was {number_to_guess}.")
+            elif guess < number_to_guess:
+                st.write("Try a higher number.")
+            else:
+                st.write("Try a lower number.")
 
-if __name__ == "__main__":
-    play_guessing_game()
+if __name
+
