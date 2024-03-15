@@ -1,11 +1,15 @@
 import streamlit as st
 from random import randint
 
+def initialize_game():
+    secret_number = randint(1, 50)
+    attempts_left = 5
+    game_over = False
+    return secret_number, attempts_left, game_over
+
 def play_guessing_game():
     if 'secret_number' not in st.session_state:
-        st.session_state.secret_number = randint(1, 50)
-        st.session_state.attempts_left = 5
-        st.session_state.game_over = False
+        st.session_state.secret_number, st.session_state.attempts_left, st.session_state.game_over = initialize_game()
 
     st.title("Guess the Number Game")
     st.write("Welcome to the Guess the Number game!")
@@ -13,9 +17,7 @@ def play_guessing_game():
     if st.session_state.game_over:
         st.write("Game Over! Would you like to play again?")
         if st.button("Play Again"):
-            st.session_state.secret_number = randint(1, 50)
-            st.session_state.attempts_left = 5
-            st.session_state.game_over = False
+            st.session_state.secret_number, st.session_state.attempts_left, st.session_state.game_over = initialize_game()
     else:
         st.write("I've picked a number between 1 and 50. You have 5 attempts to guess it!")
         
