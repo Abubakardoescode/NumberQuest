@@ -1,49 +1,39 @@
 import streamlit as st
-from random import randint
-
-def initialize_game():
-    secret_number = randint(1, 50)
-    attempts_left = 5
-    game_over = False
-    return secret_number, attempts_left, game_over
+import random
 
 def play_guessing_game():
-    if 'secret_number' not in st.session_state:
-        st.session_state.secret_number, st.session_state.attempts_left, st.session_state.game_over = initialize_game()
-
-    st.title("Guess the Number Game")
     st.write("Welcome to the Guess the Number game!")
-    
-    if st.session_state.game_over:
-        st.write("Game Over! Would you like to play again?")
-        if st.button("Play Again"):
-            st.session_state.secret_number, st.session_state.attempts_left, st.session_state.game_over = initialize_game()
-    else:
-        st.write("I've picked a number between 1 and 50. You have 5 attempts to guess it!")
-        
-        while st.session_state.attempts_left > 0:
-            guess = st.text_input("Enter your guess:")
-            
-            try:
-                guess = int(guess)
-            except ValueError:
-                st.write("Invalid input! Please enter a valid number.")
-                continue
-            
-            st.session_state.attempts_left -= 1
-            
-            if guess == st.session_state.secret_number:
-                st.success(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
-                st.session_state.game_over = True
-                break
-            elif guess > st.session_state.secret_number:
-                st.write(f"Try again! Your guess is too high. You have {st.session_state.attempts_left} attempts left.")
-            else:
-                st.write(f"Try again! Your guess is too low. You have {st.session_state.attempts_left} attempts left.")
-        
-        if st.session_state.attempts_left == 0:
-            st.error(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
-            st.session_state.game_over = True
+    st.write("I've picked a number between 1 and 50. You have 5 attempts to guess it!")
+
+    # Generate a random number between 1 and 50
+    number_to_guess = random.randint(1, 50)
+
+    attempts = 0
+    max_attempts = 5
+
+    while attempts < max_attempts:
+        guess = st.text_input("Enter your guess:", key=f"guess_input_{attempts}")
+
+        # Check if the input is a valid number
+        if not guess.isdigit():
+            st.write("Invalid input! Please enter a valid number.")
+            continue
+
+        guess = int(guess)
+
+        # Check if the guess is correct
+        if guess == number_to_guess:
+            st.write("Congratulations! You've guessed the number.")
+            break
+        elif guess < number_to_guess:
+            st.write("Try a higher number.")
+        else:
+            st.write("Try a lower number.")
+
+        attempts += 1
+
+    if attempts == max_attempts:
+        st.write(f"Sorry, you've run out of attempts. The correct number was {number_to_guess}.")
 
 if __name__ == "__main__":
     play_guessing_game()
