@@ -11,8 +11,8 @@ def play_guessing_game():
     max_attempts = 5
 
     for attempt in range(max_attempts):
-        guess = st.text_input("Enter your guess:")
-        
+        guess = st.text_input(f"Attempt {attempt+1}: Enter your guess:", key=f"guess_input_{attempt}")
+
         # Check if the input is a valid number
         if not guess.isdigit():
             st.write("Invalid input! Please enter a valid number.")
