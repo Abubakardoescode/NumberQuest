@@ -31,5 +31,5 @@ def play_guessing_game():
             else:
                 st.write("Try a lower number.")
 
-if __name
-
+if __name__ == "__main__":
+    play_guessing_game()
