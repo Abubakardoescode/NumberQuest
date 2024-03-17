@@ -7,8 +7,12 @@ def play_guessing_game():
     st.write("Welcome to the Guessing Game!")
 
     while attempts_left > 0:
+        guess_text = st.text_input("Guess the secret number (between 1 and 50):")
+        
         try:
-            guess = st.number_input("Guess the secret number (between 1 and 50):", min_value=1, max_value=50)
+            guess = int(guess_text)
+            if guess < 1 or guess > 50:
+                raise ValueError
         except ValueError:
             st.error("Invalid input! Please enter a valid number between 1 and 50.")
             continue
