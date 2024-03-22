@@ -28,8 +28,7 @@ def number_quest():
                 
                 if guess == st.session_state.secret_number:
                     st.write(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
-                   
-                    return guess  # Return the guessed number
+                    return guess  
                 elif guess < st.session_state.secret_number:
                     st.write(f"Try again! Your guess is too low. You have {st.session_state.attempts_left - 1} attempts left.")
                 else:
@@ -42,6 +41,4 @@ def number_quest():
         except:
             pass  # Suppress any errors
 
-# Start the game
-with st_analytics.track():
     guessed_number = number_quest()
