@@ -1,6 +1,5 @@
 import streamlit as st
 import random as rd
-from streamlit_analytics import st_analytics
 
 def number_quest():
     st.title("Number Quest")
