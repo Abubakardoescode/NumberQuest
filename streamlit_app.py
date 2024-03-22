@@ -18,7 +18,7 @@ def number_quest():
     # Main game loop
     while st.session_state.attempts_left > 0:
         try:
-            guess = st.number_input("Guess a Number", value=1, step=1, key="guess_input")
+            guess = st.number_input("Guess a Number between 1 to 50", value=1, step=1, key="guess_input")
             button_clicked = st.button("Submit", key="submit_button")
             
             if button_clicked:
