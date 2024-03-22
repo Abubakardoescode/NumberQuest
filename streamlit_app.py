@@ -3,7 +3,7 @@ import random as rd
 
 def number_quest():
     st.title("Number Quest")
-    st.text("Welcome to 'Number Quest' Can you figure out the secret number hidden between 1 and 50? You have 5 attempts to guess it right. Enter your guess in the box below and click "Submit" to see if you've cracked the code. Good luck!")
+    st.text("Welcome to 'Number Quest' Can you figure out the secret number hidden between 1 and 50? You have 5 attempts to guess it right. Enter your guess in the box below and click 'Submit' to see if you've cracked the code. Good luck!")
 
     # Initialize session state
     if 'attempts_left' not in st.session_state:
