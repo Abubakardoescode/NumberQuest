@@ -1,5 +1,6 @@
 import streamlit as st
 import random as rd
+from streamlit_analytics import st_analytics
 
 def number_quest():
     st.title("Number Quest")
@@ -28,6 +29,31 @@ def number_quest():
                 
                 if guess == st.session_state.secret_number:
                     st.write(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
+                    st_analytics.html("""
+                    <style>
+                    @keyframes firework {
+                      0% {
+                        opacity: 0;
+                      }
+                      50% {
+                        opacity: 1;
+                      }
+                      100% {
+                        opacity: 0;
+                      }
+                    }
+                    .firework {
+                      position: fixed;
+                      width: 20px;
+                      height: 20px;
+                      border-radius: 50%;
+                      background-color: #ffcc00;
+                      animation: firework 0.5s linear;
+                      opacity: 0;
+                    }
+                    </style>
+                    <div class="firework" style="top: 50%; left: 50%;"></div>
+                    """)
                     return guess  # Return the guessed number
                 elif guess < st.session_state.secret_number:
                     st.write(f"Try again! Your guess is too low. You have {st.session_state.attempts_left - 1} attempts left.")
@@ -42,4 +68,5 @@ def number_quest():
             pass  # Suppress any errors
 
 # Start the game
-guessed_number = number_quest()
+with st_analytics.track():
+    guessed_number = number_quest()
