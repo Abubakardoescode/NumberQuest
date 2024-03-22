@@ -34,7 +34,14 @@ def number_quest():
                 
                 if st.session_state.attempts_left == 0:
                     st.write(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
-                    return None  # Return None when game is over
+                    st.write(f"The correct answer was {st.session_state.secret_number}.")
+                    restart = st.button("Restart Game")
+                    if restart:
+                        st.session_state.attempts_left = 5
+                        st.session_state.secret_number = rd.randint(1, 50)
+                        return None  # Restart the game
+                    else:
+                        return None  # Return None when game is over
         except:
             pass  # Suppress any errors
 
