@@ -14,7 +14,7 @@ def number_quest():
     # Main game loop
     while st.session_state.attempts_left > 0:
         try:
-            guess = st.number_input("Guess a Number", min_value=1, max_value=50, value=1, step=1, key="guess_input")
+            guess = st.number_input("Guess a Number", value=1, step=1, key="guess_input")
             button_clicked = st.button("Submit", key="submit_button")
             
             if button_clicked:
@@ -26,8 +26,7 @@ def number_quest():
                 else:
                     st.write(f"Try again! Your guess is too high. You have {st.session_state.attempts_left - 1} attempts left.")
                 
-                if 1 <= guess <= 50:  # Only deduct attempts if guess is within the valid range
-                    st.session_state.attempts_left -= 1
+                st.session_state.attempts_left -= 1
                 
                 if st.session_state.attempts_left == 0:
                     st.write(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
