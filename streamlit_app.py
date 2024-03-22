@@ -22,6 +22,10 @@ def number_quest():
             button_clicked = st.button("Submit", key="submit_button")
             
             if button_clicked:
+                if guess < 1 or guess > 50:
+                    st.write("Please enter a number between 1 and 50.")
+                    continue
+                
                 if guess == st.session_state.secret_number:
                     st.write(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
                     return guess  # Return the guessed number
@@ -34,7 +38,6 @@ def number_quest():
                 
                 if st.session_state.attempts_left == 0:
                     st.write(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
-                    st.write(f"The correct answer was {st.session_state.secret_number}.")
         except:
             pass  # Suppress any errors
 
