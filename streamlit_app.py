@@ -27,17 +27,18 @@ def number_quest():
                     continue
                 
                 if guess == st.session_state.secret_number:
-                    st.write(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
+                    st.success(f"Congratulations! You guessed the secret number {st.session_state.secret_number} correctly!")
+                    st.balloon()
                     return guess  # Return the guessed number
                 elif guess < st.session_state.secret_number:
-                    st.write(f"Try again! Your guess is too low. You have {st.session_state.attempts_left - 1} attempts left.")
+                    st.error(f"Try again! Your guess is too low. You have {st.session_state.attempts_left - 1} attempts left.")
                 else:
-                    st.write(f"Try again! Your guess is too high. You have {st.session_state.attempts_left - 1} attempts left.")
+                    st.error(f"Try again! Your guess is too high. You have {st.session_state.attempts_left - 1} attempts left.")
                 
                 st.session_state.attempts_left -= 1
                 
                 if st.session_state.attempts_left == 0:
-                    st.write(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
+                    st.error(f"Game Over! The secret number was {st.session_state.secret_number}. Better luck next time!")
         except:
             pass  # Suppress any errors
 
